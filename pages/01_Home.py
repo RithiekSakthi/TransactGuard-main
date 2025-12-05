@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-import base64
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -9,69 +8,22 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- VIDEO BACKGROUND FUNCTION ---
-def set_bg_video(video_file):
-    """
-    Encodes a local video file to base64 and injects it as a fixed background,
-    positioned below the fixed header.
-    """
-    if not os.path.exists(video_file):
-        st.error(f"Video file not found: {video_file}")
-        return
-
-    with open(video_file, "rb") as video:
-        video_bytes = video.read()
-
-    encoded = base64.b64encode(video_bytes).decode()
-
-    # Note: Using double braces {{ }} for CSS/JS to escape them in the f-string
-    st.markdown(f"""
-    <style>
-        .bgvideo {{
-            position: fixed;
-            top: 180px; /* Starts exactly below the 180px banner */
-            left: 0;
-            width: 100vw;
-            height: calc(100vh - 180px); /* Height is remaining screen space */
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-            background-color: #0f172a; /* Fallback color */
-        }}
-
-        .bgvideo > video {{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.05; /* Requested Opacity */
-        }}
-
-        /* FIX STREAMLIT BACKGROUND OVERRIDES */
-        [data-testid="stAppViewContainer"] {{
-            background-color: transparent !important;
-        }}
-    </style>
-
-    <div class="bgvideo">
-        <video autoplay muted loop playsinline id="bgvid">
-            <source src="data:video/mp4;base64,{encoded}" type="video/mp4">
-        </video>
-    </div>
-
-    <script>
-        var v = document.getElementById("bgvid");
-        if (v) {{
-            v.playbackRate = 0.75;
-        }}
-    </script>
-    """, unsafe_allow_html=True)
-
-# --- CSS STYLING (Menu, Banner, Cards) ---
+# --- CUSTOM CSS & THEME INJECTION ---
 st.markdown("""
 <style>
-    /* --- GLOBAL OVERRIDES --- */
-    [data-testid="stHeader"] { display: none; }
-    [data-testid="stSidebar"], [data-testid="collapsedControl"] { display: none; }
+    /* --- GLOBAL STREAMLIT OVERRIDES --- */
+    [data-testid="stAppViewContainer"] {
+        background-color: #0f172a; /* Dark Background */
+        color: #f8fafc;
+    }
+    
+    [data-testid="stHeader"] {
+        display: none; /* Hide default Streamlit header */
+    }
+    
+    [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+        display: none;
+    }
     
     .block-container {
         padding-top: 220px; /* Spacing for fixed banner */
@@ -196,10 +148,6 @@ st.markdown("""
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 """, unsafe_allow_html=True)
-
-# --- INJECT VIDEO ---
-# Ensure this path matches exactly where your video is stored
-set_bg_video("assets/images/0_Global_Market_Financial_Data_3840x2160.mp4")
 
 # --- INJECT MENU ---
 st.markdown("""
