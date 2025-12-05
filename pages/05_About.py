@@ -116,7 +116,7 @@ st.markdown("""
         border-left: 4px solid var(--primary-color);
         padding-left: 1rem;
     }
-    h1, h2, h3, p, strong { font-family: 'Inter', sans-serif !important; }
+    h1, h2, h3, p, strong, li { font-family: 'Inter', sans-serif !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -147,7 +147,13 @@ st.markdown("""
 st.markdown('<h1 class="section-title" style="font-size: 32px; border: none; text-align: center;">About Us</h1>', unsafe_allow_html=True)
 
 st.markdown('<h2 class="section-title">Who We Are</h2>', unsafe_allow_html=True)
-st.markdown('<div class="card">We are Freshbuilders, AI students from SAIT. We developed TransactGuard to detect fraud in transactions using machine learning.</div>', unsafe_allow_html=True)
+st.markdown("""
+<div class="card">
+    We are <strong>Freshbuilders</strong>, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT). 
+    <br><br>
+    United by a passion for financial security and machine learning, we developed <strong>TransactGuard</strong>—a cutting-edge solution designed to detect and prevent fraudulent transactions in real-time. Our mission is to leverage advanced algorithms to build a safer digital economy.
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown('<h2 class="section-title">Meet The Team</h2>', unsafe_allow_html=True)
 team = [
@@ -173,12 +179,32 @@ for idx, (name, role) in enumerate(team):
 
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown('<h2 class="section-title">Strengths</h2>', unsafe_allow_html=True)
-    st.markdown('<div class="card" style="height: 150px; display: flex; align-items: center;">10+ years combined experience • Technical diversity • Data analysis expertise • Fresh ideas</div>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-title">Our Strengths</h2>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="card" style="min-height: 250px;">
+        <ul style="list-style-type: none; padding-left: 0; color: var(--text-secondary);">
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">🚀 Combined Expertise:</strong><br>Over 10 years of collective experience across various tech domains.</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">💻 Technical Diversity:</strong><br>A versatile skill set spanning full-stack web development, cloud deployment, and statistical analysis.</li>
+            <li><strong style="color: var(--text-primary);">💡 Innovation First:</strong><br>A culture of bringing fresh, unconventional ideas to solve age-old security problems.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col2:
     st.markdown('<h2 class="section-title">Challenges & Solutions</h2>', unsafe_allow_html=True)
-    st.markdown('<div class="card" style="height: 150px; display: flex; align-items: center;">Limited ML experience • Diverse backgrounds • Mentorship & pair programming support</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="card" style="min-height: 250px;">
+        <p><strong style="color: var(--primary-color);">The Challenge:</strong><br>
+        Navigating the complexities of machine learning with limited prior experience and diverse technical backgrounds was our biggest hurdle.</p>
+        <p><strong style="color: var(--primary-color);">The Solution:</strong><br>
+        We turned this challenge into our greatest asset. Through rigorous mentorship, dedicated pair programming sessions, and a commitment to continuous learning, we bridged the knowledge gap and delivered a high-performing fraud detection model.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown('<h2 class="section-title">Our Work Philosophy</h2>', unsafe_allow_html=True)
-st.markdown('<div class="card" style="text-align: center; font-size: 1.2rem; font-weight: 600;">We value collaboration, learning, and mutual support.</div>', unsafe_allow_html=True)
+st.markdown("""
+<div class="card" style="text-align: center;">
+    <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">"Innovation through Collaboration"</p>
+    <p>At Freshbuilders, we believe that great software is built by great teams. Our philosophy centers on radical collaboration, continuous improvement, and mutual support. We foster an environment where every idea is valued, and failure is seen as a stepping stone to innovation.</p>
+</div>
+""", unsafe_allow_html=True)
