@@ -13,7 +13,7 @@ st.markdown("""
 <style>
     /* --- GLOBAL STREAMLIT OVERRIDES --- */
     [data-testid="stAppViewContainer"] {
-        background-color: #0f172a; /* Dark Background */
+        background-color: transparent; /* Transparent to show video */
         color: #f8fafc;
     }
     
@@ -40,6 +40,18 @@ st.markdown("""
         --text-primary: #f8fafc;
         --text-secondary: #94a3b8;
         --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    }
+
+    /* --- VIDEO BACKGROUND --- */
+    #myVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%; 
+        min-height: 100%;
+        z-index: -1;
+        opacity: 0.75; /* Transparency 75% as requested */
+        object-fit: cover;
     }
 
     /* --- FAB / CIRCULAR MENU STYLES --- */
@@ -297,6 +309,22 @@ st.markdown("""
         to { opacity: 1; transform: translateY(0); } 
     }
 </style>
+""", unsafe_allow_html=True)
+
+# --- VIDEO BACKGROUND INJECTION ---
+st.markdown("""
+    <!-- Video Background -->
+    <video autoplay muted loop id="myVideo">
+        <source src="0_Global_Market_Financial_Data_3840x2160.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Script to control playback speed -->
+    <script>
+        const video = document.getElementById('myVideo');
+        if (video) {
+            video.playbackRate = 0.75;
+        }
+    </script>
 """, unsafe_allow_html=True)
 
 # --- INJECT MENU ---
