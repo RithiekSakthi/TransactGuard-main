@@ -18,8 +18,7 @@ st.markdown("""
     }
     
     [data-testid="stHeader"] {
-        background-color: rgba(0,0,0,0); /* Transparent Header */
-        z-index: 1; /* Lower z-index so our menu sits on top */
+        display: none; /* Hide default Streamlit header for full custom look */
     }
     
     /* HIDE STANDARD STREAMLIT SIDEBAR & MENU */
@@ -27,9 +26,9 @@ st.markdown("""
         display: none;
     }
     
-    /* Remove standard sidebar padding for full immersion */
+    /* Remove standard sidebar padding and add top padding for fixed banner */
     .block-container {
-        padding-top: 5rem; /* More padding top to clear the menu */
+        padding-top: 220px; /* Push content down to clear the fixed banner */
         padding-bottom: 5rem;
     }
 
@@ -46,9 +45,9 @@ st.markdown("""
     /* --- FAB / CIRCULAR MENU STYLES --- */
     .fab-wrapper {
         position: fixed;
-        top: 20px;    /* MOVED TO TOP */
-        left: 20px;   /* MOVED TO LEFT */
-        z-index: 99999;
+        top: 30px;    /* Center vertically within the new banner height approx */
+        left: 30px;   
+        z-index: 99999; /* Must be higher than banner */
     }
     
     .fab-button {
@@ -243,24 +242,26 @@ st.markdown("""
         border-top: 4px solid var(--primary-color);
     }
     
-    /* --- NEW BANNER STYLES --- */
+    /* --- NEW FIXED BANNER STYLES --- */
     .banner-container {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 250px;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border-radius: 16px;
+        height: 180px; /* Fixed height for the header frame */
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(15px);
+        z-index: 99990; /* High z-index but below the menu (99999) */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 3rem;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(10px);
     }
     
     .banner-title {
-        font-size: 4rem;
+        font-size: 3.5rem; /* Slightly smaller to fit fixed header */
         font-weight: 800;
         color: #ffffff;
         margin: 0;
@@ -269,9 +270,9 @@ st.markdown("""
     }
     
     .banner-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: #94a3b8;
-        margin-top: 0.5rem;
+        margin-top: 0.2rem;
         font-weight: 400;
         letter-spacing: 4px;
         text-transform: uppercase;
