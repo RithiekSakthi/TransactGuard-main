@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -8,7 +9,6 @@ st.set_page_config(
 )
 
 # --- CUSTOM CSS & THEME INJECTION ---
-# This block injects the specific styles from your HTML file into the Streamlit app.
 st.markdown("""
 <style>
     /* --- GLOBAL STREAMLIT OVERRIDES --- */
@@ -27,7 +27,7 @@ st.markdown("""
         padding-bottom: 5rem;
     }
 
-    /* --- GLOBAL VARIABLES (From HTML) --- */
+    /* --- GLOBAL VARIABLES --- */
     :root {
         --primary-color: #3b82f6;
         --background-dark: #0f172a;
@@ -176,10 +176,10 @@ st.markdown("""
         transition-delay: 0.15s;
     }
 
-    /* --- COMPONENT STYLES --- */
+    /* --- CARD STYLES --- */
     .hero-container {
         text-align: center;
-        padding: 4rem 0 2rem;
+        padding: 2rem 0 2rem;
         animation: fadeIn 1s ease-in;
     }
     
@@ -200,7 +200,7 @@ st.markdown("""
         padding: 2rem;
         text-align: center;
         transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        height: 100%; /* Ensure full height in columns */
+        height: 100%;
         min-height: 250px;
         backdrop-filter: blur(10px);
         display: flex;
@@ -221,7 +221,6 @@ st.markdown("""
     
     h1, h2, h3, p { font-family: 'Inter', sans-serif !important; }
     
-    /* Animation */
     @keyframes fadeIn { 
         from { opacity: 0; transform: translateY(20px); } 
         to { opacity: 1; transform: translateY(0); } 
@@ -229,11 +228,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- INJECT HTML COMPONENTS ---
-
-# 1. The Floating Action Button (FAB) Menu
-# NOTE: Links in Streamlit usually require standard anchors. 
-# Relative paths like "Predict" or "pages/02_Predict.py" depend on your setup.
+# --- INJECT MENU ---
 st.markdown("""
     <div class="fab-wrapper">
         <div class="fab-button">
@@ -256,35 +251,55 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# 2. Hero Section
+# --- BANNER ---
+# Display banner if file exists, otherwise show a styled placeholder
+# This prevents errors if 'assets/images/logo.png' is missing in your local environment
+if os.path.exists("assets/images/logo.png"):
+    st.image("assets/images/logo.png", use_container_width=True)
+else:
+    # Fallback banner visualization
+    st.markdown("""
+        <div style="
+            width: 100%; 
+            height: 200px; 
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 2rem;">
+            <div style="text-align: center;">
+                <h1 style="font-size: 3rem; margin:0;">🛡️ TransactGuard</h1>
+                <p style="color: #94a3b8;">Secure Transaction Monitoring</p>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+# --- HERO SECTION ---
 st.markdown("""
-    <div class="hero-container">
-        <div style="font-size: 4rem; margin-bottom: 1rem;">🛡️</div>
-        <h1 class="hero-title">TransactGuard AI</h1>
-        <p style="font-size: 1.2rem; color: #94a3b8; max-width: 700px; margin: 0 auto 2rem auto;">
-            Next-generation financial security powered by machine learning. 
-            Detect anomalies, prevent fraud, and secure transactions in real-time with 99.8% accuracy.
-        </p>
-    </div>
+<div class="hero-container">
+    <h1 class="hero-title">Fraud Transaction Prediction</h1>
+    <p style="font-size: 1.1rem; color: #94a3b8; max-width: 600px; margin: 0 auto 2rem auto;">
+        Predict fraudulent transactions with precision and confidence. Our advanced algorithms analyze transaction data in real-time.
+    </p>
+</div>
 """, unsafe_allow_html=True)
 
-# 3. Call to Action Button (Native Streamlit for logic)
-col1, col2, col3 = st.columns([1, 2, 1])
+# --- BUTTON ---
+col1, col2, col3 = st.columns([3, 1, 3])
 with col2:
-    # Centered button with native Streamlit logic
-    if st.button("🚀 Launch Prediction Engine", use_container_width=True, type="primary"):
+    if st.button("🚀 Get Started", use_container_width=True, type="primary"):
         st.switch_page("pages/02_Predict.py")
 
-st.markdown("---")
-
-# 4. Fraud Types Section (Using HTML Cards for styling)
-st.markdown('<h2 style="text-align: center; margin: 3rem 0 2rem; font-weight: 700;">Real-World Threat Detection</h2>', unsafe_allow_html=True)
+# --- FRAUD TYPES ---
+st.markdown('<h2 style="text-align: center; margin: 3rem 0 2rem; font-weight: 700;">Real-Life Fraud Transactions</h2>', unsafe_allow_html=True)
 
 fraud_types = [
-    ("💳", "Credit Card Fraud", "Unauthorized usage of card details for purchases, detected via geolocation patterns."),
-    ("🎣", "Phishing Scams", "Deceptive attempts to steal sensitive user credentials, blocked instantly."),
-    ("🔓", "Account Takeover", "Malicious actors gaining control of legitimate accounts via credential stuffing."),
-    ("🕵️", "Identity Theft", "Stolen personal information used to forge new accounts, flagged by cross-referencing.")
+    ("💳", "Unauthorized Credit Card Use", "A credit card was used without owner consent."),
+    ("🎣", "Phishing Scams", "User tricked into providing sensitive information."),
+    ("🔓", "Account Takeover", "Attacker gained control of user account."),
+    ("🙋", "Identity Theft", "Personal information stolen and used for fraud.")
 ]
 
 cols = st.columns(4)
@@ -293,18 +308,18 @@ for i, (icon, title, desc) in enumerate(fraud_types):
         st.markdown(f"""
         <div class="custom-card">
             <div style="font-size: 3rem; margin-bottom: 1rem;">{icon}</div>
-            <div style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #f8fafc;">{title}</div>
-            <div style="font-size: 0.95rem; color: #94a3b8;">{desc}</div>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: #f8fafc;">{title}</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">{desc}</div>
         </div>
         """, unsafe_allow_html=True)
 
-# 5. Process Section
-st.markdown('<h2 style="text-align: center; margin: 4rem 0 2rem; font-weight: 700;">How It Works</h2>', unsafe_allow_html=True)
+# --- PROCESS SECTION ---
+st.markdown('<h2 style="text-align: center; margin: 4rem 0 2rem; font-weight: 700;">Our Process</h2>', unsafe_allow_html=True)
 
 steps = [
-    ("📥", "Data Ingestion", "Securely stream transaction logs via API or batch upload. Supports JSON/CSV."),
-    ("🧠", "ML Inference", "Our Random Forest engine analyzes 50+ behavioral features in real-time."),
-    ("🛡️", "Instant Verdict", "Receive a 'Legit' or 'Fraud' probability score instantly via webhook.")
+    ("📥", "Data Collection", "Gather transaction data from various sources."),
+    ("🔍", "Analysis and Prediction", "Analyze patterns and predict fraud."),
+    ("📊", "Insights", "Provide insights on fraud prevention.")
 ]
 
 cols_steps = st.columns(3)
