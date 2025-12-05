@@ -315,7 +315,7 @@ st.markdown("""
 st.markdown("""
     <!-- Video Background -->
     <video autoplay muted loop id="myVideo">
-        <source src="0_Global_Market_Financial_Data_3840x2160.mp4" type="video/mp4">
+        <source src="assets/images/0_Global_Market_Financial_Data_3840x2160.mp4" type="video/mp4">
     </video>
     
     <!-- Script to control playback speed -->
