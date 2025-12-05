@@ -243,6 +243,52 @@ st.markdown("""
         border-top: 4px solid var(--primary-color);
     }
     
+    /* --- NEW BANNER STYLES --- */
+    .banner-container {
+        width: 100%;
+        height: 250px;
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 3rem;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+    }
+    
+    .banner-title {
+        font-size: 4rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin: 0;
+        letter-spacing: 2px;
+        animation: glow 3s ease-in-out infinite alternate;
+    }
+    
+    .banner-subtitle {
+        font-size: 1.5rem;
+        color: #94a3b8;
+        margin-top: 0.5rem;
+        font-weight: 400;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+    }
+
+    @keyframes glow {
+        from {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 
+                         0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 
+                         0 0 30px rgba(139, 92, 246, 0.6), 
+                         0 0 40px rgba(59, 130, 246, 0.4);
+        }
+    }
+    
     h1, h2, h3, p { font-family: 'Inter', sans-serif !important; }
     
     @keyframes fadeIn { 
@@ -286,29 +332,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- BANNER ---
-# Display banner if file exists, otherwise show a styled placeholder
-# This prevents errors if 'assets/images/logo.png' is missing in your local environment
-if os.path.exists("assets/images/logo.png"):
-    st.image("assets/images/logo.png", use_container_width=True)
-else:
-    # Fallback banner visualization
-    st.markdown("""
-        <div style="
-            width: 100%; 
-            height: 200px; 
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); 
-            border-radius: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 2rem;">
-            <div style="text-align: center;">
-                <h1 style="font-size: 3rem; margin:0;">🛡️ TransactGuard</h1>
-                <p style="color: #94a3b8;">Secure Transaction Monitoring</p>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+st.markdown("""
+    <div class="banner-container">
+        <h1 class="banner-title">Transact Guard</h1>
+        <p class="banner-subtitle">Fraud Detection</p>
+    </div>
+""", unsafe_allow_html=True)
 
 # --- HERO SECTION ---
 st.markdown("""
