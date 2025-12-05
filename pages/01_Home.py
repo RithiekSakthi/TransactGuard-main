@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import base64
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -7,6 +8,43 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+# --- HELPER FUNCTION FOR VIDEO BACKGROUND ---
+def get_video_html(video_path):
+    """
+    Reads a local video file and returns a base64 encoded HTML string 
+    to be used as a background.
+    """
+    if not os.path.exists(video_path):
+        return f"""
+        <style>
+        [data-testid="stAppViewContainer"] {{
+            background-color: #0f172a;
+        }}
+        </style>
+        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; z-index: 9999;">
+            ⚠️ Video file not found: {video_path}<br>
+            Please ensure the file is in the same directory.
+        </div>
+        """
+        
+    with open(video_path, "rb") as f:
+        video_bytes = f.read()
+    
+    encoded_video = base64.b64encode(video_bytes).decode()
+    
+    return f"""
+    <video autoplay muted loop id="myVideo">
+        <source src="data:video/mp4;base64,{encoded_video}" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <script>
+        const video = document.getElementById('myVideo');
+        if (video) {{
+            video.playbackRate = 0.75;
+        }}
+    </script>
+    """
 
 # --- CUSTOM CSS & THEME INJECTION ---
 st.markdown("""
@@ -18,17 +56,15 @@ st.markdown("""
     }
     
     [data-testid="stHeader"] {
-        display: none; /* Hide default Streamlit header for full custom look */
+        display: none; /* Hide default Streamlit header */
     }
     
-    /* HIDE STANDARD STREAMLIT SIDEBAR & MENU */
     [data-testid="stSidebar"], [data-testid="collapsedControl"] {
         display: none;
     }
     
-    /* Remove standard sidebar padding and add top padding for fixed banner */
     .block-container {
-        padding-top: 220px; /* Push content down to clear the fixed banner */
+        padding-top: 220px;
         padding-bottom: 5rem;
     }
 
@@ -50,16 +86,16 @@ st.markdown("""
         min-width: 100%; 
         min-height: 100%;
         z-index: -1;
-        opacity: 0.75; /* Transparency 75% as requested */
+        opacity: 0.75; /* Transparency 75% */
         object-fit: cover;
     }
 
     /* --- FAB / CIRCULAR MENU STYLES --- */
     .fab-wrapper {
         position: fixed;
-        top: 30px;    /* Center vertically within the new banner height approx */
+        top: 30px;
         left: 30px;   
-        z-index: 99999; /* Must be higher than banner */
+        z-index: 99999;
     }
     
     .fab-button {
@@ -87,7 +123,6 @@ st.markdown("""
         align-items: center;
     }
     
-    /* Rotate on hover (optional for hamburger, but nice effect) */
     .fab-wrapper:hover .fab-button { transform: scale(1.1); }
     
     .fab-list {
@@ -102,7 +137,6 @@ st.markdown("""
         pointer-events: none;
     }
     
-    /* INVISIBLE BRIDGE for Hover Stability (Top-Left Origin) */
     .fab-list::before {
         content: '';
         position: absolute;
@@ -110,7 +144,7 @@ st.markdown("""
         left: 0;
         width: 0;
         height: 0;
-        border-radius: 0 0 100% 0; /* Quarter circle facing bottom-right */
+        border-radius: 0 0 100% 0;
         background: transparent;
         z-index: -1;
         transition: width 0.1s, height 0.1s;
@@ -125,7 +159,7 @@ st.markdown("""
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%); /* Start at center */
+        transform: translate(-50%, -50%);
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -150,10 +184,9 @@ st.markdown("""
         z-index: 30;
     }
     
-    /* Labels now appear to the RIGHT of the icons */
     .fab-label {
         position: absolute;
-        left: 60px; /* Moved to Right side */
+        left: 60px;
         background: #1e293b;
         color: white;
         padding: 5px 12px;
@@ -178,38 +211,11 @@ st.markdown("""
     
     .fab-wrapper:hover .fab-list { pointer-events: auto; }
     
-    /* --- FAN OUT LOGIC (Top-Left to Bottom-Right) --- */
-    
-    /* Item 1: Home (Right - 0 degrees) */
-    .fab-wrapper:hover .fab-item:nth-child(1) {
-        transform: translate(150px, -50%);
-        opacity: 1;
-        transition-delay: 0.05s;
-    }
-    /* Item 2: Predict (22.5 degrees) */
-    .fab-wrapper:hover .fab-item:nth-child(2) {
-        transform: translate(135px, 55px);
-        opacity: 1;
-        transition-delay: 0.08s;
-    }
-    /* Item 3: Results (45 degrees) */
-    .fab-wrapper:hover .fab-item:nth-child(3) {
-        transform: translate(100px, 100px);
-        opacity: 1;
-        transition-delay: 0.11s;
-    }
-    /* Item 4: Data (67.5 degrees) */
-    .fab-wrapper:hover .fab-item:nth-child(4) {
-        transform: translate(55px, 135px);
-        opacity: 1;
-        transition-delay: 0.14s;
-    }
-    /* Item 5: About (Down - 90 degrees) */
-    .fab-wrapper:hover .fab-item:nth-child(5) {
-        transform: translate(-50%, 150px);
-        opacity: 1;
-        transition-delay: 0.17s;
-    }
+    .fab-wrapper:hover .fab-item:nth-child(1) { transform: translate(150px, -50%); opacity: 1; transition-delay: 0.05s; }
+    .fab-wrapper:hover .fab-item:nth-child(2) { transform: translate(135px, 55px); opacity: 1; transition-delay: 0.08s; }
+    .fab-wrapper:hover .fab-item:nth-child(3) { transform: translate(100px, 100px); opacity: 1; transition-delay: 0.11s; }
+    .fab-wrapper:hover .fab-item:nth-child(4) { transform: translate(55px, 135px); opacity: 1; transition-delay: 0.14s; }
+    .fab-wrapper:hover .fab-item:nth-child(5) { transform: translate(-50%, 150px); opacity: 1; transition-delay: 0.17s; }
 
     /* --- CARD STYLES --- */
     .hero-container {
@@ -260,12 +266,12 @@ st.markdown("""
         top: 0;
         left: 0;
         width: 100%;
-        height: 180px; /* Fixed height for the header frame */
+        height: 180px;
         background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(15px);
-        z-index: 99990; /* High z-index but below the menu (99999) */
+        z-index: 99990;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -273,7 +279,7 @@ st.markdown("""
     }
     
     .banner-title {
-        font-size: 3.5rem; /* Slightly smaller to fit fixed header */
+        font-size: 3.5rem;
         font-weight: 800;
         color: #ffffff;
         margin: 0;
@@ -291,15 +297,8 @@ st.markdown("""
     }
 
     @keyframes glow {
-        from {
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 
-                         0 0 20px rgba(59, 130, 246, 0.3);
-        }
-        to {
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 
-                         0 0 30px rgba(139, 92, 246, 0.6), 
-                         0 0 40px rgba(59, 130, 246, 0.4);
-        }
+        from { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        to { text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.6); }
     }
     
     h1, h2, h3, p { font-family: 'Inter', sans-serif !important; }
@@ -311,25 +310,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- VIDEO BACKGROUND INJECTION ---
-st.markdown("""
-    <!-- Video Background -->
-    <video autoplay muted loop id="myVideo">
-        <source src="assets/images/0_Global_Market_Financial_Data_3840x2160.mp4" type="video/mp4">
-    </video>
-    
-    <!-- Script to control playback speed -->
-    <script>
-        const video = document.getElementById('myVideo');
-        if (video) {
-            video.playbackRate = 0.75;
-        }
-    </script>
-""", unsafe_allow_html=True)
+# --- VIDEO INJECTION WITH BASE64 ---
+video_file_name = "0_Global_Market_Financial_Data_3840x2160.mp4"
+st.markdown(get_video_html(video_file_name), unsafe_allow_html=True)
 
 # --- INJECT MENU ---
-# Added items: Home, Predict, Results, Data, About
-# Changed Icon to Hamburger (☰)
 st.markdown("""
     <div class="fab-wrapper">
         <div class="fab-button">
