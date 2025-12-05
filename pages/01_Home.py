@@ -1,6 +1,5 @@
 import streamlit as st
 import base64
-import os
 
 st.set_page_config(
     page_title="Home - TransactGuard",
@@ -8,131 +7,149 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- VIDEO BACKGROUND FUNCTION ---
-def set_bg_video(video_file):
-    if not os.path.exists(video_file):
-        st.error(f"Video file not found: {video_file}")
-        return
+# ------------ READ AND ENCODE VIDEO -----------------
+def get_video_html(path):
+    with open(path, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode()
 
-    with open(video_file, "rb") as video:
-        video_bytes = video.read()
+    return f"""
+<div class="video-bg">
+  <video autoplay muted loop playsinline>
+    <source src="data:video/mp4;base64,{encoded}" type="video/mp4">
+  </video>
+</div>
 
-    encoded = base64.b64encode(video_bytes).decode()
+<style>
+.video-bg {{
+    position: fixed;
+    top: 180px;  /* BELOW BANNER */
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 180px);
+    overflow: hidden;
+    z-index: -1;
+}}
 
-    st.markdown(f"""
-    <style>
-        .bgvideo {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }}
+.video-bg video {{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    opacity: 0.55;
+}}
 
-        .bgvideo > video {{
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            opacity: 0.08;
-        }}
+/* Make background completely transparent */
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+body {{
+    background: transparent !important;
+}}
+</style>
 
-        /* FIX STREAMLIT BACKGROUND OVERRIDES */
-        html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
-            background-color: transparent !important;
-            backdrop-filter: none !important;
-        }}
-    </style>
+<script>
+  const vid = document.querySelector(".video-bg video");
+  if (vid) {{
+      vid.playbackRate = 0.8;
+  }}
+</script>
+"""
 
-    <div class="bgvideo">
-        <video autoplay muted loop playsinline id="bgvid">
-            <source src="data:video/mp4;base64,{encoded}" type="video/mp4">
-        </video>
-    </div>
+# -------------------------------------------------------
 
-    <script>
-        var v = document.getElementById("bgvid");
-        if (v) {{
-            v.playbackRate = 0.75;
-        }}
-    </script>
-    """, unsafe_allow_html=True)
-
-
-# --- INJECT VIDEO BEFORE ANY CONTENT ---
-set_bg_video("assets/images/0_Global_Market_Financial_Data_3840x2160.mp4")
-
-
-# --- MAIN CONTENT ---
+# ------------ CUSTOM CSS (MODIFIED) --------------------
 st.markdown("""
 <style>
+
+    /* REMOVE SIDEBAR */
+    [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+        display: none;
+    }
+
+    /* REMOVE DEFAULT HEADER */
     [data-testid="stHeader"] {
         display: none;
     }
 
     .block-container {
-        padding-top: 200px;
+        padding-top: 220px; 
         padding-bottom: 5rem;
-        position: relative;
-        z-index: 10;
     }
 
-    .hero-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-align: center;
+    /* Original colors */
+    :root {
+        --primary-color: #3b82f6;
+        --background-dark: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     }
 
-    .hero-text {
-        color: #94a3b8;
-        max-width: 600px;
-        margin: 1rem auto 2rem auto;
-        text-align: center;
-        font-size: 1.1rem;
+    /* KEEP MENU STYLE EXACTLY SAME */
+    .fab-wrapper {
+        position: fixed;
+        top: 30px;  
+        left: 30px;   
+        z-index: 99999;
     }
-</style>
-""", unsafe_allow_html=True)
+    
+    .fab-button {
+        width: 65px;
+        height: 65px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: .3s;
+    }
 
-st.markdown("<h1 class='hero-title'>Fraud Transaction Prediction</h1>", unsafe_allow_html=True)
-st.markdown("<p class='hero-text'>Predict fraudulent transactions with precision and confidence. Our advanced algorithms analyze transaction data in real-time.</p>", unsafe_allow_html=True)
+    .fab-icon {
+        font-size: 28px;
+        color: white;
+    }
 
+    .fab-list {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 65px;
+        height: 65px;
+        pointer-events: none;
+    }
 
-col1, col2, col3 = st.columns([3, 1, 3])
-with col2:
-    if st.button("🚀 Get Started", use_container_width=True, type="primary"):
-        st.switch_page("pages/02_Predict.py")
+    .fab-item {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(30,41,59,.9);
+        border: 1px solid rgba(255,255,255,.1);
+        backdrop-filter: blur(8px);
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        opacity: 0;
+        transition: .35s;
+        cursor:pointer;
+    }
 
-st.write("---")
-st.write("## Real-Life Fraud Transactions")
-
-cols = st.columns(4)
-fraud_types = [
-    "Unauthorized Credit Card Use",
-    "Phishing Scams",
-    "Account Takeover",
-    "Identity Theft"
-]
-
-for i, text in enumerate(fraud_types):
-    with cols[i]:
-        st.write(f"### {text}")
-        st.caption("Description goes here")
-
-st.write("---")
-st.write("## Our Process")
-
-cols = st.columns(3)
-steps = ["Data Collection", "Analysis and Prediction", "Insights"]
-
-for i, text in enumerate(steps):
-    with cols[i]:
-        st.write(f"### {text}")
-        st.caption("Description goes here")
-
-st.write("---")
-st.caption("Built with Streamlit & Machine Learning • © 2025 TransactGuard")
+    .fab-label {
+        position: absolute;
+        left: 60px;
+        background: #1e293b;
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        opacity: 0;
+        visibility: hidden;
+        tr
