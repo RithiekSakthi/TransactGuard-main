@@ -19,11 +19,17 @@ st.markdown("""
     
     [data-testid="stHeader"] {
         background-color: rgba(0,0,0,0); /* Transparent Header */
+        z-index: 1; /* Lower z-index so our menu sits on top */
+    }
+    
+    /* HIDE STANDARD STREAMLIT SIDEBAR & MENU */
+    [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+        display: none;
     }
     
     /* Remove standard sidebar padding for full immersion */
     .block-container {
-        padding-top: 2rem;
+        padding-top: 5rem; /* More padding top to clear the menu */
         padding-bottom: 5rem;
     }
 
@@ -40,8 +46,8 @@ st.markdown("""
     /* --- FAB / CIRCULAR MENU STYLES --- */
     .fab-wrapper {
         position: fixed;
-        bottom: 40px;
-        right: 40px;
+        top: 20px;    /* MOVED TO TOP */
+        left: 20px;   /* MOVED TO LEFT */
         z-index: 99999;
     }
     
@@ -61,7 +67,7 @@ st.markdown("""
     }
     
     .fab-icon {
-        font-size: 32px;
+        font-size: 28px;
         color: white;
         transition: transform 0.3s ease;
         line-height: 1;
@@ -70,13 +76,13 @@ st.markdown("""
         align-items: center;
     }
     
+    /* Rotate on hover (optional for hamburger, but nice effect) */
     .fab-wrapper:hover .fab-button { transform: scale(1.1); }
-    .fab-wrapper:hover .fab-icon { transform: rotate(45deg); }
     
     .fab-list {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        top: 0;
+        left: 0;
         padding: 0;
         margin: 0;
         list-style: none;
@@ -85,30 +91,30 @@ st.markdown("""
         pointer-events: none;
     }
     
-    /* INVISIBLE BRIDGE for Hover Stability */
+    /* INVISIBLE BRIDGE for Hover Stability (Top-Left Origin) */
     .fab-list::before {
         content: '';
         position: absolute;
-        bottom: 0;
-        right: 0;
+        top: 0;
+        left: 0;
         width: 0;
         height: 0;
-        border-radius: 100% 0 0 0;
+        border-radius: 0 0 100% 0; /* Quarter circle facing bottom-right */
         background: transparent;
         z-index: -1;
         transition: width 0.1s, height 0.1s;
     }
     
     .fab-wrapper:hover .fab-list::before {
-        width: 250px;
-        height: 250px;
+        width: 300px;
+        height: 300px;
     }
     
     .fab-item {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); /* Start at center */
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -119,7 +125,7 @@ st.markdown("""
         justify-content: center;
         align-items: center;
         text-decoration: none;
-        font-size: 22px;
+        font-size: 20px;
         opacity: 0;
         transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -133,9 +139,10 @@ st.markdown("""
         z-index: 30;
     }
     
+    /* Labels now appear to the RIGHT of the icons */
     .fab-label {
         position: absolute;
-        right: 60px;
+        left: 60px; /* Moved to Right side */
         background: #1e293b;
         color: white;
         padding: 5px 12px;
@@ -148,7 +155,7 @@ st.markdown("""
         white-space: nowrap;
         box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         border: 1px solid rgba(255,255,255,0.1);
-        transform: translateX(10px);
+        transform: translateX(-10px);
         pointer-events: none;
     }
     
@@ -160,20 +167,37 @@ st.markdown("""
     
     .fab-wrapper:hover .fab-list { pointer-events: auto; }
     
+    /* --- FAN OUT LOGIC (Top-Left to Bottom-Right) --- */
+    
+    /* Item 1: Home (Right) */
     .fab-wrapper:hover .fab-item:nth-child(1) {
-        transform: translate(-50%, -150px);
+        transform: translate(120px, -50%);
         opacity: 1;
         transition-delay: 0.05s;
     }
+    /* Item 2: Predict */
     .fab-wrapper:hover .fab-item:nth-child(2) {
-        transform: translate(-120px, -120px);
+        transform: translate(100px, 40px);
         opacity: 1;
-        transition-delay: 0.1s;
+        transition-delay: 0.08s;
     }
+    /* Item 3: Results */
     .fab-wrapper:hover .fab-item:nth-child(3) {
-        transform: translate(-150px, -50%);
+        transform: translate(60px, 90px);
         opacity: 1;
-        transition-delay: 0.15s;
+        transition-delay: 0.11s;
+    }
+    /* Item 4: Data */
+    .fab-wrapper:hover .fab-item:nth-child(4) {
+        transform: translate(10px, 130px);
+        opacity: 1;
+        transition-delay: 0.14s;
+    }
+    /* Item 5: About (Down) */
+    .fab-wrapper:hover .fab-item:nth-child(5) {
+        transform: translate(-50%, 160px);
+        opacity: 1;
+        transition-delay: 0.17s;
     }
 
     /* --- CARD STYLES --- */
@@ -229,10 +253,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- INJECT MENU ---
+# Added items: Home, Predict, Results, Data, About
+# Changed Icon to Hamburger (☰)
 st.markdown("""
     <div class="fab-wrapper">
         <div class="fab-button">
-            <span class="fab-icon">+</span>
+            <span class="fab-icon">☰</span>
         </div>
         <ul class="fab-list">
             <a href="/" target="_self" class="fab-item">
@@ -243,9 +269,17 @@ st.markdown("""
                 🚀
                 <span class="fab-label">Predict</span>
             </a>
-            <a href="Analytics" target="_self" class="fab-item">
-                📊
-                <span class="fab-label">Analytics</span>
+            <a href="Results" target="_self" class="fab-item">
+                📈
+                <span class="fab-label">Results</span>
+            </a>
+            <a href="Data" target="_self" class="fab-item">
+                💾
+                <span class="fab-label">Data</span>
+            </a>
+             <a href="About" target="_self" class="fab-item">
+                ℹ️
+                <span class="fab-label">About</span>
             </a>
         </ul>
     </div>
