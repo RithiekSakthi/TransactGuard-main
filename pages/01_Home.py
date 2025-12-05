@@ -274,7 +274,7 @@ st.markdown("""
                 <span class="fab-label">Results</span>
             </a>
             <a href="Data" target="_self" class="fab-item">
-                💾
+                🗃️
                 <span class="fab-label">Data</span>
             </a>
              <a href="About" target="_self" class="fab-item">
