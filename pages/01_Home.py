@@ -169,33 +169,33 @@ st.markdown("""
     
     /* --- FAN OUT LOGIC (Top-Left to Bottom-Right) --- */
     
-    /* Item 1: Home (Right) */
+    /* Item 1: Home (Right - 0 degrees) */
     .fab-wrapper:hover .fab-item:nth-child(1) {
-        transform: translate(120px, -50%);
+        transform: translate(150px, -50%);
         opacity: 1;
         transition-delay: 0.05s;
     }
-    /* Item 2: Predict */
+    /* Item 2: Predict (22.5 degrees) */
     .fab-wrapper:hover .fab-item:nth-child(2) {
-        transform: translate(100px, 40px);
+        transform: translate(135px, 55px);
         opacity: 1;
         transition-delay: 0.08s;
     }
-    /* Item 3: Results */
+    /* Item 3: Results (45 degrees) */
     .fab-wrapper:hover .fab-item:nth-child(3) {
-        transform: translate(60px, 90px);
+        transform: translate(100px, 100px);
         opacity: 1;
         transition-delay: 0.11s;
     }
-    /* Item 4: Data */
+    /* Item 4: Data (67.5 degrees) */
     .fab-wrapper:hover .fab-item:nth-child(4) {
-        transform: translate(10px, 130px);
+        transform: translate(55px, 135px);
         opacity: 1;
         transition-delay: 0.14s;
     }
-    /* Item 5: About (Down) */
+    /* Item 5: About (Down - 90 degrees) */
     .fab-wrapper:hover .fab-item:nth-child(5) {
-        transform: translate(-50%, 160px);
+        transform: translate(-50%, 150px);
         opacity: 1;
         transition-delay: 0.17s;
     }
