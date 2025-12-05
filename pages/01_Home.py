@@ -38,7 +38,7 @@ def get_video_html(path):
     min-height: 100%;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    opacity: 0.55;
+    opacity: 0.05;
 }}
 
 /* Make background completely transparent */
