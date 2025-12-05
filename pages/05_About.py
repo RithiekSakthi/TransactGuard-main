@@ -12,19 +12,9 @@ st.markdown("""
 <style>
     /* --- GLOBAL STREAMLIT OVERRIDES --- */
     [data-testid="stAppViewContainer"] {
-        /* Animated Gradient Background */
-        background: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #0f172a);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
+        background-color: #0f172a; 
         color: #f8fafc;
     }
-    
-    @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
     [data-testid="stHeader"], [data-testid="stSidebar"], [data-testid="collapsedControl"] {
         display: none;
     }
