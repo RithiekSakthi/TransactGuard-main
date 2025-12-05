@@ -311,7 +311,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- VIDEO INJECTION WITH BASE64 ---
-video_file_name = "0_Global_Market_Financial_Data_3840x2160.mp4"
+# Correct path based on directory structure: assets/images/
+video_file_name = "assets/images/0_Global_Market_Financial_Data_3840x2160.mp4"
 st.markdown(get_video_html(video_file_name), unsafe_allow_html=True)
 
 # --- INJECT MENU ---
