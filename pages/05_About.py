@@ -149,9 +149,9 @@ st.markdown('<h1 class="section-title" style="font-size: 32px; border: none; tex
 st.markdown('<h2 class="section-title">Who We Are</h2>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card">
-    We are <strong>Freshbuilders</strong>, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT). 
+    We are <strong>TraansactGuard</strong>, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT). 
     <br><br>
-    United by a passion for financial security and machine learning, we developed <strong>TransactGuard</strong>—a cutting-edge solution designed to detect and prevent fraudulent transactions in real-time. Our mission is to leverage advanced algorithms to build a safer digital economy.
+    United by a passion for financial security and machine learning, we developed <strong>TransactGuard</strong>—a cutting-edge solution designed to detect fraudulent transactions. Our mission is to leverage advanced algorithms to build a safer digital economy.
 </div>
 """, unsafe_allow_html=True)
 
@@ -185,7 +185,7 @@ with col1:
         <ul style="list-style-type: none; padding-left: 0; color: var(--text-secondary);">
             <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">🚀 Combined Expertise:</strong><br>Over 10 years of collective experience across various tech domains.</li>
             <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">💻 Technical Diversity:</strong><br>A versatile skill set spanning full-stack web development, cloud deployment, and statistical analysis.</li>
-            <li><strong style="color: var(--text-primary);">💡 Innovation First:</strong><br>A culture of bringing fresh, unconventional ideas to solve age-old security problems.</li>
+            <li><strong style="color: var(--text-primary);">💡 Innovation First:</strong><br>A culture of bringing fresh ideas to solve financial frauds.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -197,7 +197,7 @@ with col2:
         <p><strong style="color: var(--primary-color);">The Challenge:</strong><br>
         Navigating the complexities of machine learning with limited prior experience and diverse technical backgrounds was our biggest hurdle.</p>
         <p><strong style="color: var(--primary-color);">The Solution:</strong><br>
-        We turned this challenge into our greatest asset. Through rigorous mentorship, dedicated pair programming sessions, and a commitment to continuous learning, we bridged the knowledge gap and delivered a high-performing fraud detection model.</p>
+        We turned this challenge into our greatest asset. Through rigorous mentorship and a commitment to continuous learning, we bridged the knowledge gap and delivered a high-performing fraud detection model.</p>
     </div>
     """, unsafe_allow_html=True)
 
