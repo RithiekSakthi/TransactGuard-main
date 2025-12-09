@@ -146,7 +146,7 @@ with col1:
 # ============= WHY TRANSACTGUARD =============
 st.markdown("<div class='section-title'>Why TransactGuard?</div>", unsafe_allow_html=True)
 
-cols = st.columns(3)
+cols = st.columns(4)
 benefits = [
     ("⚡", "Instant Detection", "Detect fraudulent behavior literally in milliseconds."),
     ("🧠", "AI-Powered", "Uses ML classification models."),
