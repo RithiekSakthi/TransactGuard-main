@@ -1,7 +1,5 @@
 import streamlit as st
 import os
-from streamlit_lottie import st_lottie
-import json
 import time
 import random
 
@@ -11,14 +9,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
-# ============= LOAD LOTTIE =============
-def load_lottie(filepath):
-    with open(filepath, "r") as f:
-        return json.load(f)
-
-fraud_lottie = load_lottie("assets/fraud.json")  # put your animation here
-ai_lottie = load_lottie("assets/ai.json")
 
 # ============= GLOBAL CSS =============
 st.markdown("""
@@ -113,6 +103,20 @@ st.markdown("""
     transform: translateY(-5px);
 }
 
+/* HERO IMAGE PLACEHOLDER */
+.hero-img-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    backdrop-filter: blur(8px);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -139,7 +143,11 @@ with col1:
         st.switch_page("pages/02_Predict.py")
 
 with col2:
-    st_lottie(fraud_lottie, height=350, key="fraud")
+    st.markdown("""
+    <div class="hero-img-box">
+        Add your illustration / dashboard image here
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============= WHY TRANSACTGUARD =============
 st.markdown("<div class='section-title'>Why TransactGuard?</div>", unsafe_allow_html=True)
