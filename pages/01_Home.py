@@ -128,7 +128,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns([1.2, 1])
+col1 = st.columns([1.2])
 
 with col1:
     st.markdown("""
@@ -142,12 +142,6 @@ with col1:
     if st.button("🚀 Start Predicting", use_container_width=True, type="primary"):
         st.switch_page("pages/02_Predict.py")
 
-with col2:
-    st.markdown("""
-    <div class="hero-img-box">
-        Add your illustration / dashboard image here
-    </div>
-    """, unsafe_allow_html=True)
 
 # ============= WHY TRANSACTGUARD =============
 st.markdown("<div class='section-title'>Why TransactGuard?</div>", unsafe_allow_html=True)
@@ -155,8 +149,9 @@ st.markdown("<div class='section-title'>Why TransactGuard?</div>", unsafe_allow_
 cols = st.columns(3)
 benefits = [
     ("⚡", "Instant Detection", "Detect fraudulent behavior literally in milliseconds."),
-    ("🧠", "AI-Powered", "Uses anomaly detection + ML classification models."),
-    ("🔐", "Enterprise Security", "End-to-end encrypted and compliance ready.")
+    ("🧠", "AI-Powered", "Uses ML classification models."),
+    ("🔐", "Wallet Security", "Beware of fraudulent trasanctions."),
+    ("📊", "Dashboard", "Analytics dashboard.")
 ]
 
 for i, (icon, title, desc) in enumerate(benefits):
@@ -169,38 +164,16 @@ for i, (icon, title, desc) in enumerate(benefits):
         </div>
         """, unsafe_allow_html=True)
 
-# ============= FEATURES GRID =============
-st.markdown("<div class='section-title'>Core Features</div>", unsafe_allow_html=True)
-
-features = [
-    "Advanced ML Fraud Scoring",
-    "Transaction Stream Monitoring",
-    "User Behavior Profiling",
-    "Threat Intelligence Integration",
-    "Customizable Threshold Alerts",
-    "Deep Analytics Dashboard"
-]
-
-rows = st.columns(3)
-
-for i, feature in enumerate(features):
-    with rows[i % 3]:
-        st.markdown(f"""
-        <div class="feature-card">
-            <h4>{feature}</h4>
-        </div>
-        """, unsafe_allow_html=True)
 
 # ============= STATS =============
-st.markdown("<div class='section-title'>Live System Stats</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>Data Stats</div>", unsafe_allow_html=True)
 
-colA, colB, colC, colD = st.columns(4)
+colA, colB = st.columns(4)
 
 stats = {
-    "Transactions Today": random.randint(250000, 900000),
-    "Threats Blocked": random.randint(300, 1500),
-    "Detection Accuracy": "98.7%",
-    "Avg Latency": "42 ms"
+    "Transactions": random.randint(250000, 900000),
+    "Detection Accuracy": "98.7%"
+    
 }
 
 for col, (label, value) in zip([colA, colB, colC, colD], stats.items()):
@@ -236,6 +209,6 @@ for col, (text, author) in zip([colT1, colT2, colT3], testimonials):
 st.markdown("""
 <br><br>
 <div style="text-align:center; color:#94a3b8; padding:2rem 0; border-top:1px solid rgba(255,255,255,0.1);">
-    © 2025 TransactGuard • AI Fraud Detection Platform
+    TransactGuard • AI Fraud Detection Platform
 </div>
 """, unsafe_allow_html=True)
