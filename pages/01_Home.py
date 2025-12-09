@@ -233,26 +233,6 @@ for i, (icon, title, desc) in enumerate(benefits):
         """, unsafe_allow_html=True)
 
 
-# ============= STATS =============
-st.markdown("<div class='section-title'>Data Stats</div>", unsafe_allow_html=True)
-
-colA = st.columns(2)
-
-stats = {
-    "Transactions": "250000",
-    "Detection Accuracy": "98.7%"
-    
-}
-
-for i, (title, desc) enumerate(stats):
-    with colA[i]:
-        st.markdown(f"""
-        <div class="custom-card">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">{icon}</div>
-            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: #f8fafc;">{title}</div>
-            <div style="font-size: 0.9rem; color: #94a3b8;">{desc}</div>
-        </div>
-        """, unsafe_allow_html=True)
 
 # ============= FOOTER =============
 st.markdown("""
