@@ -239,7 +239,7 @@ st.markdown("<div class='section-title'>Data Stats</div>", unsafe_allow_html=Tru
 colA, colB = st.columns(2)
 
 stats = {
-    "Transactions": random.randint(250000, 900000),
+    "Transactions": "250000",
     "Detection Accuracy": "98.7%"
     
 }
