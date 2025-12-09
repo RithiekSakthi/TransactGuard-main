@@ -211,7 +211,7 @@ for i, (icon, title, desc) in enumerate(fraud_types):
         """, unsafe_allow_html=True)
 
 # ============= WHY TRANSACTGUARD =============
-st.markdown("<div class='section-title'>Why TransactGuard?</div>", unsafe_allow_html=True)
+st.markdown('<h2 style="text-align: center; margin: 3rem 0 2rem; font-weight: 700;">Why TransactGuard</h2>', unsafe_allow_html=True)
 
 cols = st.columns(4)
 benefits = [
@@ -221,22 +221,22 @@ benefits = [
     ("📊", "Dashboard", "Analytics dashboard.")
 ]
 
+cols = st.columns(4)
 for i, (icon, title, desc) in enumerate(benefits):
     with cols[i]:
         st.markdown(f"""
-        <div class="feature-card">
-            <div style="font-size:2.5rem;">{icon}</div>
-            <h3 style="margin-top:1rem;">{title}</h3>
-            <p style="color:#94a3b8;">{desc}</p>
+        <div class="custom-card">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">{icon}</div>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: #f8fafc;">{title}</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">{desc}</div>
         </div>
         """, unsafe_allow_html=True)
-
 
 
 # ============= STATS =============
 st.markdown("<div class='section-title'>Data Stats</div>", unsafe_allow_html=True)
 
-colA, colB = st.columns(2)
+colA = st.columns(2)
 
 stats = {
     "Transactions": "250000",
@@ -244,12 +244,13 @@ stats = {
     
 }
 
-for col, (label, value) in zip([colA, colB], stats.items()):
-    with col:
+for i, (icon, title, desc) in enumerate(stats):
+    with colA[i]:
         st.markdown(f"""
-        <div class="stat-card">
-            <div class="stat-number">{value}</div>
-            <div class="stat-label">{label}</div>
+        <div class="custom-card">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">{icon}</div>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: #f8fafc;">{title}</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">{desc}</div>
         </div>
         """, unsafe_allow_html=True)
 
