@@ -120,6 +120,30 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# --- INJECT MENU ---
+st.markdown("""
+    <div class="fab-wrapper">
+        <div class="fab-button"><span class="fab-icon">☰</span></div>
+        <ul class="fab-list">
+            <a href="/" target="_self" class="fab-item">🏠<span class="fab-label">Home</span></a>
+            <a href="Predict" target="_self" class="fab-item">🚀<span class="fab-label">Predict</span></a>
+            <a href="Results" target="_self" class="fab-item">📈<span class="fab-label">Results</span></a>
+            <a href="Data" target="_self" class="fab-item">🗃️<span class="fab-label">Data</span></a>
+            <a href="About" target="_self" class="fab-item">ℹ️<span class="fab-label">About</span></a>
+        </ul>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- INJECT BANNER ---
+st.markdown("""
+    <div class="banner-container">
+        <h1 class="banner-title">Transact Guard</h1>
+        <p class="banner-subtitle">Fraud Detection</p>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- PAGE CONTENT ---
+
 # Hero Section
 st.markdown("""
 <div class="hero-container">
@@ -135,6 +159,7 @@ col1, col2, col3 = st.columns([3, 1, 3])
 with col2:
     if st.button("🚀 Get Started", use_container_width=True, type="primary"):
         st.switch_page("pages/02_Predict.py")
+
 
 
 
