@@ -244,7 +244,7 @@ stats = {
     
 }
 
-for i in enumerate(stats):
+for i, (title, desc) enumerate(stats):
     with colA[i]:
         st.markdown(f"""
         <div class="custom-card">
