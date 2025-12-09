@@ -236,7 +236,7 @@ for i, (icon, title, desc) in enumerate(benefits):
 # ============= STATS =============
 st.markdown("<div class='section-title'>Data Stats</div>", unsafe_allow_html=True)
 
-colA, colB = st.columns(4)
+colA, colB = st.columns(2)
 
 stats = {
     "Transactions": random.randint(250000, 900000),
@@ -244,7 +244,7 @@ stats = {
     
 }
 
-for col, (label, value) in zip([colA, colB, colC, colD], stats.items()):
+for col, (label, value) in zip([colC, colD], stats.items()):
     with col:
         st.markdown(f"""
         <div class="stat-card">
