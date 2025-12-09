@@ -128,7 +128,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-col1 = st.columns([1.2])
+# FIXED COLUMN
+col1 = st.columns([1.2])[0]
 
 with col1:
     st.markdown("""
@@ -141,6 +142,7 @@ with col1:
 
     if st.button("🚀 Start Predicting", use_container_width=True, type="primary"):
         st.switch_page("pages/02_Predict.py")
+
 
 
 # ============= WHY TRANSACTGUARD =============
