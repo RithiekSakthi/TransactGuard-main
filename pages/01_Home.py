@@ -214,9 +214,9 @@ for i, (icon, title, desc) in enumerate(fraud_types):
 st.markdown('<h2 style="text-align: center; margin: 4rem 0 2rem; font-weight: 700;">Our Process</h2>', unsafe_allow_html=True)
 
 steps = [
-    ("📥", "Data Collection", "Gather transaction data from various sources."),
+    ("📥", "Data Collection", "Voluminous transaction data backing the model."),
     ("🔍", "Analysis and Prediction", "Analyze patterns and predict fraud."),
-    ("📊", "Insights", "Provide insights on fraud prevention.")
+    ("📊", "Insights", "Provide insights on fraud transactions.")
 ]
 
 cols_steps = st.columns(3)
