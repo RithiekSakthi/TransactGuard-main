@@ -244,7 +244,7 @@ stats = {
     
 }
 
-for col, (label, value) in zip([colC, colD], stats.items()):
+for col, (label, value) in zip([colA, colB], stats.items()):
     with col:
         st.markdown(f"""
         <div class="stat-card">
