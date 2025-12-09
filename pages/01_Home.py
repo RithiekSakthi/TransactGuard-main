@@ -120,28 +120,22 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ============= HERO SECTION =============
+# Hero Section
 st.markdown("""
-<div class="banner">
-    <h1>TransactGuard</h1>
-    <p>AI-driven fraud detection built for speed, scale, and accuracy.</p>
+<div class="hero-container">
+    <h1 class="hero-title">Fraud Transaction Prediction</h1>
+    <p style="font-size: 1.1rem; color: #94a3b8; max-width: 600px; margin: 0 auto 2rem auto;">
+        Predict fraudulent transactions with precision and confidence. Our advanced algorithms analyze transaction data in real-time.
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
-# FIXED COLUMN
-col1 = st.columns([1.2])[0]
-
-with col1:
-    st.markdown("""
-        <h2 style="font-size:2.2rem; font-weight:800;">Real-Time Fraud Prevention</h2>
-        <p style="color:#94a3b8; font-size:1.1rem;">
-            Our AI engine analyzes live transaction streams, detects anomalies, and stops fraud 
-            before it becomes a problem. Built for banks, fintech, and high-volume systems.
-        </p>
-    """, unsafe_allow_html=True)
-
-    if st.button("🚀 Start Predicting", use_container_width=True, type="primary"):
+# CTA Button
+col1, col2, col3 = st.columns([3, 1, 3])
+with col2:
+    if st.button("🚀 Get Started", use_container_width=True, type="primary"):
         st.switch_page("pages/02_Predict.py")
+
 
 
 
