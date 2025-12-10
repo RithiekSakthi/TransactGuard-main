@@ -1,6 +1,7 @@
 import streamlit as st
 
 # --- PAGE CONFIGURATION ---
+# Note: The sidebar is collapsed here as the custom FAB menu is used for navigation.
 st.set_page_config(
     page_title="About - TransactGuard",
     layout="wide",
@@ -15,11 +16,13 @@ st.markdown("""
         background-color: #0f172a; 
         color: #f8fafc;
     }
+    /* Hide default Streamlit elements */
     [data-testid="stHeader"], [data-testid="stSidebar"], [data-testid="collapsedControl"] {
         display: none;
     }
     .block-container {
-        padding-top: 220px;
+        /* Pushing content down below the fixed banner */
+        padding-top: 220px; 
         padding-bottom: 5rem;
     }
 
@@ -33,7 +36,7 @@ st.markdown("""
         --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     }
 
-    /* --- MENU STYLES --- */
+    /* --- MENU STYLES (Floating Action Button) --- */
     .fab-wrapper { position: fixed; top: 30px; left: 30px; z-index: 99999; }
     .fab-button {
         width: 65px; height: 65px; background: var(--accent-gradient);
@@ -120,7 +123,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- INJECT MENU ---
+# --- INJECT MENU (FAB) ---
 st.markdown("""
     <div class="fab-wrapper">
         <div class="fab-button"><span class="fab-icon">☰</span></div>
@@ -142,19 +145,22 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# --- PAGE CONTENT (Updated) ---
 
+# --- PAGE CONTENT (Using structure from Snippet 2, content from Snippet 1) ---
+
+# Centered Title
 st.markdown('<h1 class="section-title" style="font-size: 32px; border: none; text-align: center;">About Us</h1>', unsafe_allow_html=True)
 
-st.markdown('<h2 class="section-title">Who We Are </h2>', unsafe_allow_html=True)
+# Who We Are
+st.markdown('<h2 class="section-title">Who We Are</h2>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card">
-    We are <strong>TraansactGuard</strong>, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT). 
-    <br><br>
-    United by a passion for financial security and machine learning, we developed <strong>TransactGuard</strong>—a cutting-edge solution designed to detect fraudulent transactions. Our mission is to leverage advanced algorithms to build a safer digital economy.
+    We are <strong>Freshbuilders</strong>, AI students from SAIT. We developed <strong>TransactGuard</strong> to detect fraud in transactions using machine learning.
 </div>
 """, unsafe_allow_html=True)
 
+
+# Meet The Team
 st.markdown('<h2 class="section-title">Meet The Team</h2>', unsafe_allow_html=True)
 team = [
     ("Dany", "Project Coordinator and UI Designer"),
@@ -164,8 +170,10 @@ team = [
     ("Angel", "Testing and Documentation Lead")
 ]
 
+# Using a column layout for the team list for better visual appeal
 cols = st.columns(2)
 for idx, (name, role) in enumerate(team):
+    # Using the enhanced card style from the second snippet
     with cols[idx % 2]:
         st.markdown(f'''
             <div class="card" style="display: flex; align-items: center; border-left: 3px solid var(--primary-color);">
@@ -177,34 +185,26 @@ for idx, (name, role) in enumerate(team):
             </div>
         ''', unsafe_allow_html=True)
 
+
+# Strengths and Challenges (side-by-side layout)
 col1, col2 = st.columns(2)
 with col1:
     st.markdown('<h2 class="section-title">Our Strengths</h2>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="card" style="min-height: 250px;">
-        <ul style="list-style-type: none; padding-left: 0; color: var(--text-secondary);">
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">🚀 Combined Expertise:</strong><br>Over 10 years of collective experience across various tech domains.</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">💻 Technical Diversity:</strong><br>A versatile skill set spanning full-stack web development, cloud deployment, and statistical analysis.</li>
-            <li><strong style="color: var(--text-primary);">💡 Innovation First:</strong><br>A culture of bringing fresh ideas to solve financial frauds.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="card" style="min-height: 120px;">10+ years combined experience • Technical diversity • Data analysis expertise • Fresh ideas</div>', 
+        unsafe_allow_html=True
+    )
 
 with col2:
     st.markdown('<h2 class="section-title">Challenges & Solutions</h2>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="card" style="min-height: 250px;">
-        <p><strong style="color: var(--primary-color);">The Challenge:</strong><br>
-        Navigating the complexities of machine learning with limited prior experience and diverse technical backgrounds was our biggest hurdle.</p>
-        <p><strong style="color: var(--primary-color);">The Solution:</strong><br>
-        We turned this challenge into our greatest asset. Through rigorous mentorship and a commitment to continuous learning, we bridged the knowledge gap and delivered a high-performing fraud detection model.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="card" style="min-height: 120px;">Limited ML experience • Diverse backgrounds • Mentorship & pair programming support</div>', 
+        unsafe_allow_html=True
+    )
 
-st.markdown('<h2 class="section-title">Our Work Philosophy</h2>', unsafe_allow_html=True)
-st.markdown("""
-<div class="card" style="text-align: center;">
-    <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">"Innovation through Collaboration"</p>
-    <p>At Freshbuilders, we believe that great software is built by great teams. Our philosophy centers on radical collaboration, continuous improvement, and mutual support. We foster an environment where every idea is valued, and failure is seen as a stepping stone to innovation.</p>
-</div>
-""", unsafe_allow_html=True)
+# Work Philosophy
+st.markdown('<h2 class="section-title">Our Work Philosophy </h2>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="card" style="text-align: center;">We value collaboration, learning, and mutual support.</div>', 
+    unsafe_allow_html=True
+)
