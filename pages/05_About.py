@@ -142,11 +142,11 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# --- PAGE CONTENT ---
+# --- PAGE CONTENT (Updated) ---
 
 st.markdown('<h1 class="section-title" style="font-size: 32px; border: none; text-align: center;">About Us</h1>', unsafe_allow_html=True)
 
-st.markdown('<h2 class="section-title">Who We Are</h2>', unsafe_allow_html=True)
+st.markdown('<h2 class="section-title">Who We Are </h2>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card">
     We are <strong>TraansactGuard</strong>, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT). 
