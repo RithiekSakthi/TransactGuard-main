@@ -4,14 +4,10 @@ import streamlit as st
 st.set_page_config(
     page_title="About - TransactGuard",
     layout="wide",
-    # Note: Setting to 'collapsed' for consistency with the provided CSS/menu, 
-    # as the CSS hides the native sidebar anyway.
-    initial_sidebar_state="collapsed" 
+    initial_sidebar_state="collapsed"
 )
 
 # --- CUSTOM CSS & THEME INJECTION ---
-# This block defines the dark theme, hides the native header/sidebar, 
-# and sets up the custom floating menu and banner styles.
 st.markdown("""
 <style>
     /* --- GLOBAL STREAMLIT OVERRIDES --- */
@@ -19,13 +15,11 @@ st.markdown("""
         background-color: #0f172a; 
         color: #f8fafc;
     }
-    /* Hide the native header, sidebar, and collapse button */
     [data-testid="stHeader"], [data-testid="stSidebar"], [data-testid="collapsedControl"] {
         display: none;
     }
     .block-container {
-        /* Pushes content down past the fixed banner height (180px + margin) */
-        padding-top: 220px; 
+        padding-top: 220px;
         padding-bottom: 5rem;
     }
 
@@ -38,9 +32,6 @@ st.markdown("""
         --text-secondary: #94a3b8;
         --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     }
-    
-    /* Set a consistent font */
-    h1, h2, h3, p, strong, li, div { font-family: 'Inter', sans-serif; }
 
     /* --- MENU STYLES --- */
     .fab-wrapper { position: fixed; top: 30px; left: 30px; z-index: 99999; }
@@ -108,7 +99,7 @@ st.markdown("""
         to { text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.6); }
     }
 
-    /* --- ABOUT SPECIFIC STYLES --- */
+    /* --- ABOUT PAGE ELEMENT STYLES --- */
     .card {
         background-color: var(--card-bg);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -125,28 +116,12 @@ st.markdown("""
         border-left: 4px solid var(--primary-color);
         padding-left: 1rem;
     }
-    /* Specific style for the team member cards */
-    .team-member-card {
-        display: flex; 
-        align-items: center; 
-        border-left: 3px solid var(--primary-color);
-    }
-    .team-icon {
-        font-size: 1.5rem; 
-        margin-right: 1rem;
-    }
-    .team-name {
-        font-weight: 700; 
-        color: white;
-    }
-    .team-role {
-        color: var(--text-secondary); 
-        font-size: 0.9rem;
-    }
+    h1, h2, h3, p, strong, li { font-family: 'Inter', sans-serif !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# --- INJECT MENU (Floating Action Button) ---
+
+# --- MENU ---
 st.markdown("""
     <div class="fab-wrapper">
         <div class="fab-button"><span class="fab-icon">☰</span></div>
@@ -160,30 +135,33 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+
 # --- BANNER ---
 st.markdown("""
     <div class="banner-container">
-        <h1 class="banner-title">Transact Guard</h1>
+        <h1 class="banner-title">TransactGuard</h1>
         <p class="banner-subtitle">Fraud Detection</p>
     </div>
 """, unsafe_allow_html=True)
 
-# --- PAGE CONTENT (Updated content as requested) ---
+
+# =================== PAGE CONTENT ===================
 
 st.markdown('<h1 class="section-title" style="font-size: 32px; border: none; text-align: center;">About Us</h1>', unsafe_allow_html=True)
 
-# Who We Are
+# --- WHO WE ARE ---
 st.markdown('<h2 class="section-title">Who We Are</h2>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card">
-    We are <strong>TransactGuard</strong>, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT). 
-    <br><br>
-    United by a passion for financial security and machine learning, we developed <strong>TransactGuard</strong>—a cutting-edge solution designed to detect fraudulent transactions. Our mission is to leverage advanced algorithms to build a safer digital economy.
+We are TransactGuard, a dynamic team of AI students from the Southern Alberta Institute of Technology (SAIT).<br><br>
+United by a passion for financial security and machine learning, we developed TransactGuard—a cutting-edge solution designed to detect fraudulent transactions. Our mission is to leverage advanced algorithms to build a safer digital economy.
 </div>
 """, unsafe_allow_html=True)
 
-# Meet The Team
+
+# --- TEAM ---
 st.markdown('<h2 class="section-title">Meet The Team</h2>', unsafe_allow_html=True)
+
 team = [
     ("Dany", "Project Coordinator and UI Designer"),
     ("Nay", "Technical Lead and Developer"),
@@ -192,53 +170,42 @@ team = [
     ("Angel", "Testing and Documentation Lead")
 ]
 
-# Display team members in two columns
 cols = st.columns(2)
 for idx, (name, role) in enumerate(team):
     with cols[idx % 2]:
-        # Using custom classes defined in the CSS block for card styling
-        st.markdown(f'''
-            <div class="card team-member-card">
-                <div class="team-icon">👤</div>
+        st.markdown(f"""
+            <div class="card" style="display: flex; align-items: center; border-left: 3px solid var(--primary-color);">
+                <div style="font-size: 1.5rem; margin-right: 1rem;">👤</div>
                 <div>
-                    <div class="team-name">{name}</div>
-                    <div class="team-role">{role}</div>
+                    <div style="font-weight: 700; color: white;">{name}</div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">{role}</div>
                 </div>
             </div>
-        ''', unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
+
+# --- STRENGTHS ---
 col1, col2 = st.columns(2)
 
-# Our Strengths
 with col1:
-    st.markdown('<h2 class="section-title">Our Strengths</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-title">Strengths</h2>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="card" style="min-height: 250px;">
-        <ul style="list-style-type: none; padding-left: 0; color: var(--text-secondary);">
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">🚀 Combined Expertise:</strong><br>Over 10 years of collective experience across various tech domains.</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">💻 Technical Diversity:</strong><br>A versatile skill set spanning full-stack web development, cloud deployment, and statistical analysis.</li>
-            <li><strong style="color: var(--text-primary);">💡 Innovation First:</strong><br>A culture of bringing fresh ideas to solve financial frauds.</li>
+    <div class="card">
+        <ul style="margin: 0 0 0 18px; padding: 0; color: var(--text-primary);">
+            <li>10+ years combined experience</li>
+            <li>Technical diversity</li>
+            <li>Data analysis expertise</li>
+            <li>Fresh ideas</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
 
-# Challenges & Solutions
+
+# --- Work Philosophy ---
 with col2:
-    st.markdown('<h2 class="section-title">Challenges & Solutions</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-title">Our Work Philosophy</h2>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="card" style="min-height: 250px;">
-        <p><strong style="color: var(--primary-color);">The Challenge:</strong><br>
-        Navigating the complexities of machine learning with limited prior experience and diverse technical backgrounds was our biggest hurdle.</p>
-        <p><strong style="color: var(--primary-color);">The Solution:</strong><br>
-        We turned this challenge into our greatest asset. Through rigorous mentorship and a commitment to continuous learning, we bridged the knowledge gap and delivered a high-performing fraud detection model.</p>
+    <div class="card">
+        We value collaboration, learning, and mutual support.
     </div>
     """, unsafe_allow_html=True)
-
-# Our Work Philosophy
-st.markdown('<h2 class="section-title">Our Work Philosophy</h2>', unsafe_allow_html=True)
-st.markdown("""
-<div class="card" style="text-align: center;">
-    <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">"Innovation through Collaboration"</p>
-    <p>At Freshbuilders, we believe that great software is built by great teams. Our philosophy centers on radical collaboration, continuous improvement, and mutual support. We foster an environment where every idea is valued, and failure is seen as a stepping stone to innovation.</p>
-</div>
-""", unsafe_allow_html=True)
